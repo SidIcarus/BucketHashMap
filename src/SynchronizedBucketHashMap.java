@@ -1,6 +1,4 @@
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.concurrent.locks.*;
 
 /*
  * A SynchronizedBucketHashMap implements a subset of the Map interface.

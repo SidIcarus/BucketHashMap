@@ -4,4 +4,9 @@ import java.util.concurrent.locks.*;
 
 public class ConcurrentBucketHashMap {
 
+	
+	
+	public ConcurrentBucketHashMap(int nbuckets){
+		
+	}
 }
