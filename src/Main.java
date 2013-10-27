@@ -1,19 +1,28 @@
 public class Main {
 
+	/**
+	 * @param args
+	 */
 	public static void main(String[] args) {
-		ConcurrentBucketHashMap bucketMap = new ConcurrentBucketHashMap(3);
+		ConcurrentBucketHashMap<String, String> map = new ConcurrentBucketHashMap<String, String>(3);
 		
 		for(int i = 0; i < 50; i++)
-			bucketMap.put(i,i*42);
+			map.put("Key: " +i, "Value: " +i);
 
-		WorkerThread thread1 = new WorkerThread(bucketMap, 1);
-		WorkerThread thread2 = new WorkerThread(bucketMap, 2);
-		WorkerThread thread3 = new WorkerThread(bucketMap, 3);
+		System.out.println("Programing Starting\n");
+		System.out.println("Initial map size: " +map.size());
 		
-		System.out.println("Attempt to break the ConcurrentBucketHashMap started!");
+		WorkerThread thread1 = new WorkerThread(map, 1);
+		WorkerThread thread2 = new WorkerThread(map, 2);
+		WorkerThread thread3 = new WorkerThread(map, 3);
 		
+		System.out.println("\tStarting Thread 1");
 		thread1.start();
+		
+		System.out.println("\tStarting Thread 2");
 		thread2.start();
+		
+		System.out.println("\tStarting Thread 3");
 		thread3.start();
 	}
 }

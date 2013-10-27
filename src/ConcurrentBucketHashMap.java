@@ -5,20 +5,17 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 
 /*
- * A SynchronizedBucketHashMap implements a subset of the Map interface.
- * It would be relatively easy (but tedious) to add the
- * missing methods to bring this into conformance with the
- * Map interface.
+ * A SynchronizedBucketHashMap contains key/value apir objects in
+ * a list of buckets
  *
  * The idea is that a key/value Pair objects are placed in one
  * of N Buckets based on the hashcode of the key mod N. The
  * Buckets are contained in an array, and hashcode based selector
  * is the index into the array of the appropriate Bucket.
  *
- * In this version, all synchronization is done using built-in
- * Java synchronized blocks. This is inefficient, as it does not
- * support concurrent reading, and does not allow a consistent
- * compoutation of the size.
+ * In this version, all explicit locking and unlocking is done via
+ * Java's ReentrantReadWriteLock inside Bucket to support concurrent
+ * read.
  */
 
 public class ConcurrentBucketHashMap<K, V>{
@@ -135,7 +132,7 @@ public class ConcurrentBucketHashMap<K, V>{
         buckets = new ArrayList<Bucket<K, V>>(nbuckets);
 
         for (int i = 0 ; i < nbuckets ; i++)
-            buckets.add(new Bucket<K, V>()) ;
+            buckets.add(new Bucket<K, V>());
     }
 
     /**
@@ -291,7 +288,6 @@ public class ConcurrentBucketHashMap<K, V>{
             if(key.equals(pair.key)) 
             	return i;
         }
-        
         return (-1);
     }
 }
