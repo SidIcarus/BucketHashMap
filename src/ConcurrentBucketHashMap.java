@@ -60,7 +60,7 @@ public class ConcurrentBucketHashMap<K, V>{
         /**
          * Status of the bucket, whether it's being used by any writer or not.
          */
-        private boolean inUsed = false;
+        private boolean inUse = false;
 
         /**
          * Writer that waiting to use the bucket and write.
@@ -109,7 +109,7 @@ public class ConcurrentBucketHashMap<K, V>{
          *             - from wait()
          */
         synchronized void lockRead() throws InterruptedException {
-            while (inUsed || writeRequests > 0) {
+            while (inUse || writeRequests > 0) {
                 wait();
             }
             readers++;
@@ -132,10 +132,10 @@ public class ConcurrentBucketHashMap<K, V>{
         synchronized void lockWrite() throws InterruptedException {
             writeRequests++;
 
-            while (readers > 0 || inUsed) {
+            while (readers > 0 || inUse) {
                 wait();
             }
-            inUsed = true;
+            inUse = true;
             writeRequests--;
         }
 
@@ -143,7 +143,7 @@ public class ConcurrentBucketHashMap<K, V>{
          * Write unlock for writers.
          */
         synchronized void unlockWrite() {
-            inUsed = false;
+            inUse = false;
             notifyAll();
         }
     }
