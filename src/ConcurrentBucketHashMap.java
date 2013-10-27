@@ -1,5 +1,5 @@
-import java.util.*;
-import java.util.concurrent.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.locks.*;
 
 
@@ -86,10 +86,25 @@ public class ConcurrentBucketHashMap<K, V>{
         void removePair(int index){
             contents.remove(index);
         }
+    
+        //containsKey
+        boolean containsKey(K Key){
+        	
+        return true;
+        }
+        
+        //get
+        
+        
+        //put
+        
+        
+        //remove
+        
     }
 
     /*
-     * Constructor for the SynchronizedBucketHashMap proper.
+     * Constructor for the ConcurrentBucketHashMap proper.
      */
     public ConcurrentBucketHashMap(int nbuckets){
         numberOfBuckets = nbuckets;
