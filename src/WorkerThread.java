@@ -1,4 +1,3 @@
-
-public class WorkerThread {
+public class WorkerThread extends Thread{
 
 }
